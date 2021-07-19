@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Execute as root to install TEX from DEV
+# Execute as root to install TEX from REF
 
 source ../../shared_root.sh
 
