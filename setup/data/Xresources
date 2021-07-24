@@ -1,22 +1,25 @@
 URxvt.font: xft:DejaVu Sans Mono:size=10
 URxvt.boldFont: xft:DejaVu Sans Mono:size=10
-URxvt*saveLines: 10000
-URxvt*scrollBar: false
-URxvt*foreground: #f2f2f2
-URxvt*background: #101010
-URxvt*color0: #101010
-URxvt*color1: #f13a21
-URxvt*color2: #93f91d
-URxvt*color3: #ffd00a
-URxvt*color4: #004f9a
-URxvt*color5: #ec0048
-URxvt*color6: #2aa7e7
-URxvt*color7: #f2f2f2
-URxvt*color8: #1d202f
-URxvt*color9: #ff361e
-URxvt*color10: #ffc005
-URxvt*color11: #93ff00
-URxvt*color12: #0071ff
-URxvt*color13: #ef0051
-URxvt*color14: #4ff8fd
-URxvt*color15: #a020f0
+URxvt.saveLines: 10000
+URxvt.scrollBar: false
+URxvt.urlLauncher: firefox
+URxvt.underlineURLs: true
+
+*.foreground: #f2f2f2
+*.background: #101010
+*.color0: #101010
+*.color1: #f13a21
+*.color2: #93f91d
+*.color3: #ffd00a
+*.color4: #004f9a
+*.color5: #ec0048
+*.color6: #2aa7e7
+*.color7: #f2f2f2
+*.color8: #1d202f
+*.color9: #ff361e
+*.color10: #ffc005
+*.color11: #93ff00
+*.color12: #0071ff
+*.color13: #ef0051
+*.color14: #4ff8fd
+*.color15: #a020f0
