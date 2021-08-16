@@ -132,7 +132,7 @@ def report(check_id, file_name, line, auto, arg=None):
 
 	if CONFIG_VERBOSE or report.counter < CONFIG_MAX_REPORT:
 		sys.stdout.write(file_name + ':' + str(line) + ' - ' + string)
-		if arg != None:
+		if arg is not None:
 			sys.stdout.write(' ' + arg)
 		if not auto:
 			sys.stdout.write(' [no auto-correct]\n')
