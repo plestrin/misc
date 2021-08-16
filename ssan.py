@@ -401,126 +401,136 @@ def sscan_pcode(lines, file_name):
 
 	return False, lines
 
-def dispatcher(rootname, filename):
-	sscan_list = []
-
-	basename = os.path.basename(filename)
-	fullname = os.path.join(rootname, filename)
-
+def dispatcher(root_name, file_name):
 	# Rename file
-	newname = None
-	if basename.endswith('.yar'):
-		newname = fullname + 'a'
-	elif filename.find(' ') != -1:
-		newname = os.path.join(rootname, filename.replace(' ', '_'))
+	base_name = os.path.basename(file_name)
+	full_name = os.path.join(root_name, file_name)
 
-	if newname:
-		os.rename(fullname, newname)
-		sys.stdout.write('\x1b[32m[+]\x1b[0m file ' + fullname + ' move to ' + newname + '\n')
-		fullname = newname
-		basename = os.path.basename(newname)
+	new_file_name = file_name
+	if new_file_name.endswith('.yar'):
+		new_file_name = new_file_name + 'a'
+	if new_file_name.find(' ') != -1:
+		new_file_name = new_file_name.replace(' ', '_')
+	if new_file_name.lower() == 'readme.md' and new_file_name != 'README.md':
+		new_file_name = 'README.md'
+	if new_file_name.lower() == 'makefile' and new_file_name != 'Makefile':
+		new_file_name = 'Makefile'
 
-	sha256 = hash_file(fullname)
+	if file_name != new_file_name:
+		new_full_name = os.path.join(root_name, new_file_name)
+		if os.path.exists(new_full_name):
+			sys.stdout.write('\x1b[33m[-]\x1b[0m cannot move %s to %s : file exists already\n' % (full_name, new_full_name))
+		else:
+			os.rename(full_name, new_full_name)
+			sys.stdout.write('\x1b[32m[+]\x1b[0m file %s move to %s\n' % (full_name, new_full_name))
+			full_name = new_full_name
+			file_name = new_file_name
+			base_name = os.path.basename(new_file_name)
+
+	# Check duplicate
+	sha256 = hash_file(full_name)
 	if sha256 in HASH_SET:
-		sys.stdout.write('\x1b[33m[-]\x1b[0m file %s is a duplicate\n' % fullname)
+		sys.stdout.write('\x1b[33m[-]\x1b[0m file %s is a duplicate\n' % full_name)
 	else:
 		HASH_SET.add(sha256)
 
-	if basename.endswith('.a'):
+	sscan_list = []
+
+	if base_name.endswith('.a'):
 		return
-	elif basename.endswith('.asm'):
+	elif base_name.endswith('.asm'):
 		sscan_list = [sscan_text]
-	elif basename.endswith('.bin'):
+	elif base_name.endswith('.bin'):
 		return
-	elif basename.endswith('.c'):
+	elif base_name.endswith('.c'):
 		sscan_list = [sscan_text, sscan_ccode, sscan_space_parenthesis]
-	elif basename.endswith('.cpp'):
+	elif base_name.endswith('.cpp'):
 		sscan_list = [sscan_text, sscan_ccode, sscan_space_parenthesis]
-	elif basename.endswith('.dll'):
+	elif base_name.endswith('.dll'):
 		return
-	elif basename.endswith('.exe'):
+	elif base_name.endswith('.exe'):
 		return
-	elif basename == '.gitignore':
+	elif base_name == '.gitignore':
 		sscan_list = [sscan_text]
-	elif basename.endswith('.gz'):
+	elif base_name.endswith('.gz'):
 		return
-	elif basename.endswith('.h'):
+	elif base_name.endswith('.h'):
 		sscan_list = [sscan_text, sscan_ccode, sscan_cheader, sscan_space_parenthesis]
-	elif basename.endswith('.html'):
+	elif base_name.endswith('.html'):
 		sscan_list = [sscan_text]
-	elif basename.endswith('.i64'):
+	elif base_name.endswith('.i64'):
 		return
-	elif basename.endswith('.idb'):
+	elif base_name.endswith('.idb'):
 		return
-	elif basename.endswith('.js'):
+	elif base_name.endswith('.js'):
 		sscan_list = [sscan_text]
-	elif basename.endswith('.go'):
+	elif base_name.endswith('.go'):
 		sscan_list = [sscan_text]
-	elif basename.endswith('.ko'):
+	elif base_name.endswith('.ko'):
 		return
-	elif basename.endswith('.log'):
+	elif base_name.endswith('.log'):
 		return
-	elif basename.endswith('.md'):
+	elif base_name.endswith('.md'):
 		sscan_list = []
-	elif basename.endswith('.o'):
+	elif base_name.endswith('.o'):
 		return
-	elif basename.endswith('.obj'):
+	elif base_name.endswith('.obj'):
 		return
-	elif basename.endswith('.patch'):
+	elif base_name.endswith('.patch'):
 		return
-	elif basename.endswith('.pcap'):
+	elif base_name.endswith('.pcap'):
 		return
-	elif basename.endswith('.pdf'):
+	elif base_name.endswith('.pdf'):
 		return
-	elif basename.endswith('.pem'):
+	elif base_name.endswith('.pem'):
 		return
-	elif basename.endswith('.png'):
+	elif base_name.endswith('.png'):
 		return
-	elif basename.endswith('.py'):
+	elif base_name.endswith('.py'):
 		sscan_list = [sscan_text, sscan_pcode, sscan_space_parenthesis]
-	elif basename.endswith('.pyc'):
+	elif base_name.endswith('.pyc'):
 		return
-	elif basename.endswith('.rb'):
+	elif base_name.endswith('.rb'):
 		sscan_list = [sscan_text]
-	elif basename.endswith('.sh'):
+	elif base_name.endswith('.sh'):
 		sscan_list = [sscan_text]
-	elif basename.endswith('.so'):
+	elif base_name.endswith('.so'):
 		return
-	elif basename.endswith('.symvers'):
+	elif base_name.endswith('.symvers'):
 		return
-	elif basename.endswith('.sys'):
+	elif base_name.endswith('.sys'):
 		return
-	elif basename.endswith('.tgz'):
+	elif base_name.endswith('.tgz'):
 		return
-	elif basename.endswith('.txt'):
+	elif base_name.endswith('.txt'):
 		sscan_list = [sscan_text]
-	elif basename.endswith('.yara'):
+	elif base_name.endswith('.yara'):
 		sscan_list = [sscan_text]
-	elif basename.endswith('.xml'):
+	elif base_name.endswith('.xml'):
 		sscan_list = [sscan_text]
-	elif basename.endswith('.zip'):
+	elif base_name.endswith('.zip'):
 		return
-	elif basename in ('Makefile', 'Dockerfile'):
+	elif base_name in ('Makefile', 'Dockerfile'):
 		sscan_list = [sscan_text]
 	else:
-		if not is_elf_file(fullname):
-			sys.stdout.write('\x1b[33m[-]\x1b[0m file %s has no known type -> skip\n' % fullname)
+		if not is_elf_file(full_name):
+			sys.stdout.write('\x1b[33m[-]\x1b[0m file %s has no known type -> skip\n' % full_name)
 		return
 
-	with open(fullname, 'r') as f:
+	with open(full_name, 'r') as f:
 		lines = f.readlines()
 
 	rewrite = False
 
 	for sscan in sscan_list:
-		local_rewrite, lines = sscan(lines, fullname)
+		local_rewrite, lines = sscan(lines, full_name)
 		rewrite |= local_rewrite
 
 	if rewrite:
-		with open(fullname, 'w') as f:
+		with open(full_name, 'w') as f:
 			for line in lines:
 				f.write(line)
-		sys.stdout.write('\x1b[32m[+]\x1b[0m fixed problem(s) in %s\n' % fullname)
+		sys.stdout.write('\x1b[32m[+]\x1b[0m fixed problem(s) in %s\n' % full_name)
 
 if __name__ == '__main__':
 	if len(sys.argv) < 2:
