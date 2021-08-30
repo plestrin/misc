@@ -1,6 +1,6 @@
 #!/bin/bash
 
-setup_vscode_root() {
+setup_root_vscode() {
     if [ ! -e /etc/apt/sources.list.d/vscode.list ]; then
         if [ ! -e /etc/apt/trusted.gpg.d/packages.microsoft.gpg ]; then
             wget -q -O - https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /tmp/packages.microsoft.gpg
@@ -11,4 +11,8 @@ setup_vscode_root() {
     fi
 
     apt-get install -y code
+}
+
+setup_root_motd() {
+    echo -e "\\n********************\\n*** $1 ***\\n********************\\n" > /etc/motd
 }

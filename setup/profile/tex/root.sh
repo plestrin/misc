@@ -10,6 +10,6 @@ apt-get update
 apt-get dist-upgrade -y
 apt-get install -y evince apt-transport-https gpg texlive texlive-lang-french texlive-latex-extra texlive-fonts-extra git hunspell-en-us hunspell-fr
 
-setup_vscode_root
+setup_root_vscode
 
-echo -e '\n********************\n*** TEX DEB10-64 ***\n********************\n' > /etc/motd
+setup_root_motd "TEX DEB10-64"
