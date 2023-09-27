@@ -7,4 +7,6 @@ if [ "$(id -u)" -eq 0 ]; then
     exit 1
 fi
 
-ln -s /usr/share/myspell/dicts/* /home/user/.config/Code/Dictionaries
+if [ -e ~/.config/Code ]; then
+    ln -s /usr/share/myspell/dicts/* ~/.config/Code/Dictionaries || exit 1
+fi
