@@ -5,6 +5,8 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
+VERSION=$(cut -d . -f 1 < /etc/debian_version)
+
 setup_root_vscode() {
     if [ ! -e /etc/apt/sources.list.d/vscode.list ]; then
         if [ ! -e /etc/apt/trusted.gpg.d/packages.microsoft.gpg ]; then

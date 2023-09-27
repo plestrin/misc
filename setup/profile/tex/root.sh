@@ -4,7 +4,7 @@
 
 source ../../shared_root.sh
 
-hostnamectl set-hostname tex-deb10-64
+hostnamectl set-hostname "tex-deb${VERSION}-64"
 
 apt-get update
 apt-get dist-upgrade -y
@@ -12,4 +12,4 @@ apt-get install -y evince apt-transport-https gpg texlive texlive-lang-french te
 
 setup_root_vscode
 
-setup_root_motd "TEX DEB10-64"
+setup_root_motd "TEX DEB${VERSION}-64"
