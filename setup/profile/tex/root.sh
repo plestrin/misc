@@ -2,7 +2,10 @@
 
 # Execute as root to install TEX from REF
 
-source ../../shared_root.sh
+SCRIPT_PATH=$(cd -- "$(dirname "$0")" > /dev/null 2>&1; pwd -P)
+ROOT_PATH=${SCRIPT_PATH}/../../
+
+source "${ROOT_PATH}shared_root.sh"
 
 hostnamectl set-hostname "tex-deb${VERSION}-64"
 
