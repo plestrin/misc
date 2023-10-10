@@ -5,13 +5,11 @@
 SCRIPT_PATH=$(cd -- "$(dirname "$0")" > /dev/null 2>&1; pwd -P)
 ROOT_PATH=${SCRIPT_PATH}/../../
 
-source "${ROOT_PATH}shared_root.sh" || exit 1
+source "${ROOT_PATH}/shared_root.sh" || exit 1
 
 hostnamectl set-hostname "tex-deb${VERSION}-64" || exit 1
 
-apt-get update || exit 1
-apt-get dist-upgrade -y || exit 1
-apt-get install -y      \
+setup_root_apt_install  \
     evince              \
     apt-transport-https \
     gpg                 \
