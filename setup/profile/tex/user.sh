@@ -2,11 +2,10 @@
 
 # Execute as user to install TEX from REF after root.sh
 
-if [ "$(id -u)" -eq 0 ]; then
-    echo "[-] this script must be run as simple user"
-    exit 1
-fi
+SCRIPT_PATH=$(cd -- "$(dirname "$0")" > /dev/null 2>&1; pwd -P)
+ROOT_PATH=${SCRIPT_PATH}/../../
 
-if [ -e ~/.config/Code ]; then
-    ln -s /usr/share/myspell/dicts/* ~/.config/Code/Dictionaries || exit 1
-fi
+source "${ROOT_PATH}/shared_user.sh" || exit 1
+
+setup_user_basic_graphic || exit 1
+setup_user_vscode || exit 1

@@ -5,12 +5,27 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
+setup_root_apt_update() {
+    apt-get update || return 1
+    apt-get dist-upgrade || return 1
+    apt-get autoremove -y || return 1
+}
+
 setup_root_apt_install() {
     apt-get update || return 1
     apt-get install -y "$@" || return 1
 }
 
+setup_root_basic_graphic() {
+    setup_root_apt_install  \
+        i3                  \
+        j4-dmenu-desktop    \
+        lightdm             \
+        rxvt-unicode || return 1
+}
+
 setup_root_vscode() {
+    setup_root_apt_install wget || return 1
     if [ ! -e /etc/apt/sources.list.d/vscode.list ]; then
         if [ ! -e /etc/apt/trusted.gpg.d/packages.microsoft.gpg ]; then
             wget -q -O - https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /tmp/packages.microsoft.gpg
