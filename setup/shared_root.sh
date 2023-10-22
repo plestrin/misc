@@ -24,6 +24,10 @@ setup_root_basic_graphic() {
         rxvt-unicode || return 1
 }
 
+setup_root_lightdm_auto() {
+    sed -i "s/#autologin-user=$/autologin-user=$1/" /etc/lightdm/lightdm.conf
+}
+
 setup_root_vscode() {
     setup_root_apt_install wget || return 1
     if [ ! -e /etc/apt/sources.list.d/vscode.list ]; then

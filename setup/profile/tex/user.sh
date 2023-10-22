@@ -9,3 +9,4 @@ source "${ROOT_PATH}/shared_user.sh" || exit 1
 
 setup_user_basic_graphic || exit 1
 setup_user_vscode || exit 1
+setup_user_export_alias || exit 1

@@ -21,5 +21,6 @@ setup_root_apt_install  \
     git                 \
     hunspell-en-us      \
     hunspell-fr || exit 1
-# setup_root_vscode || exit 1
+setup_root_lightdm_auto "$(id -un 1000)" || exit 1
+setup_root_vscode || exit 1
 setup_root_motd "TEX DEB${VERSION}-64" || exit 1
