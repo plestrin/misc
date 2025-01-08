@@ -9,7 +9,7 @@ import enchant
 DICT = enchant.Dict('en_US')
 OWN_DICT = frozenset(('addr', 'aes', 'arg', 'cmd', 'ciphertext', 'del', 'desc', 'dev', 'dst', 'eax', 'ebx', 'ecx', 'edx', 'endianness', 'fpga', 'gettime', 'grep', 'hmac', 'init', 'ip', 'len', 'linux', 'malloc', 'mem', 'msg', 'nb', 'pci', 'pe', 'pid', 'plaintext', 'prev', 'proc', 'ptr', 'ptrace', 'rb', 'realloc', 'ret', 'shl', 'shr', 'sizeof', 'snprintf', 'spi', 'src', 'str', 'struct', 'sudo', 'tmp', 'tsearch', 'wunused', 'xor', 'xtea'))
 
-EXCLUDE = ('.git')
+EXCLUDE = ('.git',)
 
 RE_TOKENIZE_WORD = re.compile(r'(?<!%)[a-zA-Z][a-z]*')
 
